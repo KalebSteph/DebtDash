@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @EnvironmentObject var debtStore: DebtStore
     var body: some View {
         VStack {
             Spacer()
@@ -25,9 +26,7 @@ struct WelcomeView: View {
 
             Spacer()
 
-            NavigationLink {
-                DebtView()
-            } label: {
+            NavigationLink(destination: DebtView()) {
                 Text("Get Started")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -58,5 +57,8 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    NavigationStack {
+        WelcomeView()
+            .environmentObject(DebtStore())
+    }
 }
