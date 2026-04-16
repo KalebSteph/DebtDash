@@ -34,6 +34,17 @@ class DebtStore: ObservableObject {
             goals[index].amountPaid = goals[index].totalDebt
         }
     }
+    
+    func updateGoal(_ goal: DebtGoal, newName: String, newTotalDebt: Double) {
+        guard let index = goals.firstIndex(where: { $0.id == goal.id }) else { return }
+
+        goals[index].name = newName
+        goals[index].totalDebt = newTotalDebt
+
+        if goals[index].amountPaid > goals[index].totalDebt {
+            goals[index].amountPaid = goals[index].totalDebt
+        }
+    }
 
     func deleteGoal(_ goal: DebtGoal) {
         goals.removeAll { $0.id == goal.id }

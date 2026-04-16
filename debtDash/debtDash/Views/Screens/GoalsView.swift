@@ -10,6 +10,8 @@ import SwiftUI
 struct GoalsView: View {
     @EnvironmentObject var debtStore: DebtStore
     @State private var paymentInputs: [UUID: String] = [:]
+    @State private var goalToDelete: DebtGoal?
+    @State private var showDeleteAlert = false
 
     var body: some View {
         ZStack {
@@ -34,16 +36,6 @@ struct GoalsView: View {
                                     .foregroundColor(AppColors.textSecondary)
                                     .multilineTextAlignment(.center)
 
-                                NavigationLink(destination: DebtView()) {
-                                    Text("Add Goal")
-                                        .font(.system(size: 17, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .background(AppColors.pink)
-                                        .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 24)
@@ -100,7 +92,8 @@ struct GoalsView: View {
                                 }
 
                                 Button(role: .destructive) {
-                                    debtStore.deleteGoal(goal)
+                                    goalToDelete = goal
+                                    showDeleteAlert = true
                                 } label: {
                                     Text("Delete")
                                         .font(.system(size: 14, weight: .semibold))
@@ -117,6 +110,24 @@ struct GoalsView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: DebtView()) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(AppColors.textPrimary)
+                }
+            }
+        }
+        .alert("Delete Goal?", isPresented: $showDeleteAlert, presenting: goalToDelete) { goal in
+            Button("Delete", role: .destructive) {
+                debtStore.deleteGoal(goal)
+            }
+
+            Button("Cancel", role: .cancel) { }
+        } message: { goal in
+            Text("Are you sure you want to delete \"\(goal.name)\"?")
+        }
     }
 }
 
