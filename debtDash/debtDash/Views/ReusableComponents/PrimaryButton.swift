@@ -17,7 +17,7 @@ struct PrimaryButton: View {
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .frame(height: 54)
+                .frame(height: 55)
                 .background(AppColors.pink)
                 .cornerRadius(16)
         }
