@@ -42,6 +42,11 @@ class DebtStore: ObservableObject {
     func deleteGoal(at offsets: IndexSet) {
         goals.remove(atOffsets: offsets)
     }
+    
+    func resetGoals() {
+        goals = []
+        UserDefaults.standard.removeObject(forKey: saveKey)
+    }
 
     private func saveGoals() {
         do {

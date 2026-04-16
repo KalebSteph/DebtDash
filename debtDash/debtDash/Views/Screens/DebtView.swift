@@ -18,7 +18,7 @@ struct DebtView: View {
         VStack {
             Spacer()
 
-            Text("Add New\nDebt Goal")
+            Text("Enter New\nDebt Goal")
                 .font(.system(size: 34, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundColor(AppColors.textPrimary)
@@ -26,7 +26,7 @@ struct DebtView: View {
             Spacer()
 
             AppCard {
-                AppField(title: "Goal Name", placeholder: "Car Goal", text: $goalName)
+                AppField(title: "Goal Name", placeholder: "Enter Goal", text: $goalName)
 
                 AppField(
                     title: "Debt Amount",
