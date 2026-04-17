@@ -14,7 +14,7 @@ struct debtDashApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                DebtView()
+                WelcomeView()
             }
             .environmentObject(debtStore)
         }
